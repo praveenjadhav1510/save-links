@@ -22,4 +22,7 @@ This project provides a sleek and interactive web interface for saving and manag
 ![Link Cards Preview](images/p2.png)
 ### Preview 2
 ![Link Cards Preview](images/p3.png)
+
+### Try it your self
+#### App Url: https://praveenjadhav1510.github.io/save-links/
 ---
