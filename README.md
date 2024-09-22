@@ -16,4 +16,10 @@ This project provides a sleek and interactive web interface for saving and manag
 4. The app will automatically fetch the website’s favicon based on the provided URL.
 5. Your saved links are now displayed as personalized cards for easy access.
 
+### Preview 1
+![Link Cards Preview](images/p1.png)
+### Preview add card
+![Link Cards Preview](images/p2.png)
+### Preview 2
+![Link Cards Preview](images/p3.png)
 ---
