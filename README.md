@@ -15,13 +15,16 @@ This project provides a sleek and interactive web interface for saving and manag
 3. Select a **color** for your card using the built-in color picker.
 4. The app will automatically fetch the website’s favicon based on the provided URL.
 5. Your saved links are now displayed as personalized cards for easy access.
+6. You can export and import you links to any Device.
 
 ### Preview 1
 ![Link Cards Preview](images/p1.png)
-### Preview add card
+### Preview 2 Adding card
 ![Link Cards Preview](images/p2.png)
-### Preview 2
+### Preview 3 Exporting
 ![Link Cards Preview](images/p3.png)
+### Preview 4 Importing
+![Link Cards Preview](images/p4.png)
 
 ### Try it your self
 #### App Url: https://praveenjadhav1510.github.io/save-links/
