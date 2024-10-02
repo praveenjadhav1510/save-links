@@ -1,0 +1,104 @@
+.impexp {
+    border: 2px solid #1e1e1e;
+    backdrop-filter: blur(20px);
+    background: #1e1e1e80;
+    width: 80vw;
+    max-width: 700px;
+    height: fit-content;
+    padding: 25px;
+    color: white;
+    border-radius: 10px;
+}
+.impexp button {
+    width: fit-content;
+    line-height: 40px;
+    border-radius: 20px;
+    padding: 0px 20px;
+    border: none;
+    outline: none;
+    background: #1e1e1e48;
+    color: white;
+    font-family: 'Consolas', sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all .5s;
+}
+.impexp button:hover {
+    background: #6cb8e6;
+    color: #1e1e1e;
+}
+.impexp .impo {
+    background: #6cb8e6;
+    border-radius: 10px;
+    padding: 5px 10px;
+    color: #1e1e1e;
+    text-align: center;
+    font: bold 18px arial;
+    width: fit-content;
+    padding: 5px 10px;
+    margin: auto;
+    margin-top: 50px;
+}
+.impexp .close {
+    position: relative;
+    top: 5px;
+    right: 5px;
+    font-size: 34px;
+    color: white;
+    cursor: pointer;
+    transition: all .5s;
+}
+.impexp .close:hover {
+    color: red;
+}
+.code {
+    margin-top: 20px;
+    height: fit-content;
+    max-height: 400px;
+    overflow: hidden;
+    overflow-y: scroll;
+    border-radius: 10px;
+    font-size: .80rem;
+}
+
+
+.hidden-file-input {
+    display: none;
+}
+.custom-file-label {
+    line-height: 40px;
+    padding: 0px 10px;
+    color: #ffffff;
+    background: #1e1e1e48;
+    cursor: pointer;
+    border: 2px dashed transparent;
+    border-radius: 20px;
+    transition: all .2s;
+}
+.custom-file-label:hover {
+    border: 2px dashed #6cb8e6;
+    color: #6cb8e6;
+}
+
+
+.btbox {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filename {
+    background-color: #ffffff3f;
+    padding: 3px 7px;
+    border-radius: 10px;
+}
+
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+    font-weight: bold;
+}
