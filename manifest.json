@@ -1,21 +1,21 @@
 {
-  "short_name": "Save links",
-  "name": "Save Links",
+  "short_name": "SaveLinks",
+  "name": "SaveLinks - Bookmark Manager",
   "icons": [
     {
       "src": "favicon.svg",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/svg+xml"
     },
     {
       "src": "favicon.svg",
-      "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "type": "image/svg+xml"
     },
     {
       "src": "favicon.svg",
-      "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "type": "image/svg+xml"
     }
   ],
   "start_url": ".",
