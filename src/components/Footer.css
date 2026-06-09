@@ -1,0 +1,320 @@
+.footer {
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 50px;
+  background: rgb(38 38 64 / 25%);
+  border-radius: 20px 20px 0px 0px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  gap: 40px;
+  color: white;
+  animation: birth 0.5s alternate ease-in;
+  z-index: 100;
+}
+
+.footer a {
+  scale: 1.1;
+  color: white;
+  text-decoration: none;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.fin,
+.fex {
+  color: #1e1e1e;
+  transition: all 0.5s;
+}
+
+.fin:hover {
+  color: #00ddff;
+}
+
+.fex:hover {
+  color: #1dff77;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 55px;
+  box-sizing: border-box;
+  padding: 10px;
+  padding-left: 1em;
+  padding-right: 1em;
+  font-size: 20px;
+  color: white;
+  background: rgb(38 38 64 / 25%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: 0px 0px 20px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  place-items: center;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+.userbox {
+  display: flex;
+  gap: 15px;
+  place-items: center;
+}
+
+.sort-indicator {
+  opacity: 0.7;
+  font-size: 0.85em;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 300px;
+  margin: 0 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 0 12px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.search-container:focus-within {
+  background: rgba(255, 255, 255, 0.15);
+  max-width: 400px;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-input {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 8px 10px;
+  color: white;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.search-clear {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.search-clear:hover {
+  color: #ff5252;
+}
+
+.importbox {
+  display: flex;
+  place-items: center;
+  justify-content: right;
+  gap: 10px;
+  position: relative;
+  animation: birthTop 0.5s alternate ease-in;
+}
+
+@keyframes birthTop {
+  0% {
+    top: -50px;
+    filter: blur(20px);
+  }
+
+  100% {
+    top: 0px;
+  }
+}
+
+.importbox div {
+  display: grid;
+  place-items: center;
+  min-width: 25px;
+  min-height: 25px;
+  background: white;
+  color: #1e1e1e;
+  padding: 5px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.importbox div:hover .tooltip {
+  display: block;
+  animation: showtooltip 0.5s ease-out alternate;
+}
+
+@keyframes showtooltip {
+  0% {
+    top: 65px;
+    filter: blur(10px);
+    opacity: 0;
+  }
+
+  100% {
+    filter: blur(0px);
+    opacity: 1;
+    top: 50px;
+  }
+}
+
+.tooltip {
+  scale: 0.8;
+  display: none;
+  position: absolute;
+  top: 50px;
+  color: #1e1e1e;
+  background: white;
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+
+.tooltip::after {
+  content: "a";
+  position: absolute;
+  top: -5px;
+  color: transparent;
+  left: 50%;
+  transform: translateX(-100%) rotate(45deg);
+  background: white;
+  z-index: -1;
+}
+
+.importbox div .ic {
+  scale: 1.3;
+  transition: all 0.5s;
+}
+
+.edit,
+.reloader {
+  scale: 1.2;
+  cursor: pointer;
+}
+
+.reloader {
+  scale: 1.4;
+  padding: 5px;
+}
+
+.reloader:hover {
+  animation: spin 0.5s ease-in-out;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .header {
+    backdrop-filter: unset;
+    height: auto;
+    min-height: 55px;
+    padding-bottom: 10px;
+  }
+
+  .search-container {
+    order: 3;
+    width: 100%;
+    max-width: none;
+    margin: 10px 0 0 0;
+  }
+
+  .search-container:focus-within {
+    max-width: none;
+  }
+
+  .footer {
+    display: none;
+    animation: vanishDown 0.5s alternate ease-in;
+  }
+
+  .importbox {
+    transition: 1s ease-in-out;
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    animation: birth 0.5s alternate ease-in;
+  }
+
+  .Card-sorter {
+    position: absolute;
+    justify-content: center;
+  }
+}
+
+@keyframes birth {
+  0% {
+    bottom: -50px;
+    filter: blur(20px);
+  }
+
+  100% {
+    bottom: 0px;
+  }
+}
+
+@keyframes vanishDown {
+  0% {
+    display: flex;
+    bottom: 0;
+    opacity: 1;
+  }
+
+  100% {
+    filter: blur(20px);
+    display: none;
+    bottom: -50px;
+    opacity: 0;
+  }
+}
+
+/* ─────────────────────────────
+   EDIT MODE BUTTON
+───────────────────────────── */
+
+/* Dedicated edit mode toggle button */
+.edit-mode-btn {
+  position: relative;
+  transition: background 0.25s, box-shadow 0.25s, color 0.25s;
+}
+
+/* Active / "on" state – cyan glow */
+.edit-mode-btn.edit-mode-active {
+  background: #4fc3f7 !important;
+  color: white !important;
+  box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.35),
+    0 0 12px rgba(79, 195, 247, 0.5) !important;
+}
+
+.edit-mode-btn.edit-mode-active svg {
+  color: white;
+}

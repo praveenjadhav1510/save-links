@@ -1,0 +1,125 @@
+.Card-sorter.redesigned {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  width: auto;
+  min-width: 300px;
+  height: auto;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 110;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.Card-sorter.redesigned.visible {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(-50%) translateY(0);
+}
+
+.sorter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5px;
+  margin-bottom: 5px;
+}
+
+.sorter-header span {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.close-sorter {
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.2s;
+}
+
+.close-sorter:hover {
+  color: white;
+}
+
+.sorter-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.sorter-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 65px;
+  height: 65px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.sorter-item .icon,
+.sorter-item .icon-text {
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+
+.sorter-item .icon-text {
+  font-weight: 800;
+  font-family: sans-serif;
+  font-size: 1rem;
+}
+
+.sorter-item .label {
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.sorter-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.sorter-item.active {
+  background: white;
+  color: black;
+  border-color: white;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+.icon-stack {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.icon-stack svg {
+  font-size: 0.9rem;
+}
+
+@media only screen and (max-width: 500px) {
+  .Card-sorter.redesigned {
+    width: 90%;
+    top: auto;
+    bottom: 80px;
+  }
+}

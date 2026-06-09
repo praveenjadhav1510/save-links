@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://praveenjadhav1510.github.io/save-links/sitemap.xml
