@@ -1,26 +1,32 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmark, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import CATEGORY_LABELS from "./CategoryLabels";
 
 const CATEGORIES = [
   "WebPage",
-  "Tool",
   "AI",
+  "Tool",
+  "Utility",
+  "Development",
+  "Design",
   "Multimedia",
   "Games",
   "Blogs",
   "D-Link",
+  "Work",
   "Private",
+  "Favorites",
 ];
 
-export default function AddCard({ data, refresh, notify }) {
+export default function AddCard({ data, refreshData, notify }) {
   const [adding, setAdding] = useState(false);
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [faviconUrl, setFaviconUrl] = useState("default.svg");
   const [urlError, setUrlError] = useState(false);
   const [cardColor, setCardColor] = useState("#1e1e1e");
-  const [pagetype, setPagetype] = useState("WebPage");
+  const [category, setCategory] = useState("WebPage");
   const [loading, setLoading] = useState(false);
   const modalRef = useRef();
 
@@ -58,26 +64,26 @@ export default function AddCard({ data, refresh, notify }) {
       url,
       iconUrl: faviconUrl,
       color: cardColor,
-      pagetype,
+      category,
     };
 
     const updatedData = [...data, newCard];
-    localStorage.setItem("websiteData", JSON.stringify(updatedData));
+    localStorage.setItem("saved_links_data", JSON.stringify(updatedData));
 
     if (name === "deletedata") {
-      localStorage.removeItem("websiteData");
+      localStorage.removeItem("saved_links_data");
     }
 
     // Reset all fields
     setName("");
     setUrl("");
-    setPagetype("WebPage");
+    setCategory("WebPage");
     setFaviconUrl("default.svg");
     setCardColor("#1e1e1e");
     setAdding(false);
     setUrlError(false);
 
-    refresh();
+    refreshData();
     notify(name + " created", cardColor);
   };
 
@@ -129,7 +135,7 @@ export default function AddCard({ data, refresh, notify }) {
       </div>
 
       <div className="card add-card-item" onClick={() => setAdding(true)} style={{ backgroundColor: "#1e1e1e" }}>
-        <div className="imgspace">
+        <div className="card-icon-container">
           <FontAwesomeIcon icon={faPlus} className="plus" />
         </div>
         <div className="card-name">
@@ -138,7 +144,7 @@ export default function AddCard({ data, refresh, notify }) {
       </div>
 
       {adding && (
-        <div className="addingCard" onClick={handleBackdropClick}>
+        <div className="modal-overlay" onClick={handleBackdropClick}>
           <div className="modal-content" ref={modalRef} style={{ borderTop: `4px solid ${cardColor}` }}>
             <div className="modal-header">
               <h3>Create New Link</h3>
@@ -147,7 +153,7 @@ export default function AddCard({ data, refresh, notify }) {
 
             <div className="live-preview">
               <div className="card preview-card" style={{ backgroundColor: cardColor, boxShadow: `0px 10px 25px ${cardColor}40` }}>
-                <div className="imgspace">
+                <div className="card-icon-container">
                   {loading ? (
                     <FontAwesomeIcon icon={faCircleNotch} spin />
                   ) : (
@@ -202,10 +208,10 @@ export default function AddCard({ data, refresh, notify }) {
                   {CATEGORIES.map((type) => (
                     <div
                       key={type}
-                      className={`type-chip ${pagetype === type ? "active" : ""}`}
-                      onClick={() => setPagetype(type)}
+                      className={`type-chip ${category === type ? "active" : ""}`}
+                      onClick={() => setCategory(type)}
                     >
-                      {type}
+                      {CATEGORY_LABELS[type] || type}
                     </div>
                   ))}
                 </div>

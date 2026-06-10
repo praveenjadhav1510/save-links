@@ -11,12 +11,12 @@ export default function Card({
   url,
   iconUrl: initialIconUrl,
   color,
-  pagetype,
+  category,
   sortType,
-  del,
+  isDeleteMode,
   isEditMode,
   data,
-  refresh,
+  refreshData,
   notify,
   isDraggable,
 }) {
@@ -31,8 +31,8 @@ export default function Card({
     e.preventDefault();
     e.stopPropagation();
     const filteredData = data.filter((item) => item.url !== url);
-    localStorage.setItem("websiteData", JSON.stringify(filteredData));
-    refresh();
+    localStorage.setItem("saved_links_data", JSON.stringify(filteredData));
+    refreshData();
     notify("Removed " + name, color);
   };
 
@@ -57,7 +57,7 @@ export default function Card({
     transform: CSS.Transform.toString(transform),
     transition,
     display:
-      sortType === "WebPage" || pagetype === sortType
+      sortType === "WebPage" || category === sortType
         ? "flex"
         : "none",
     zIndex: isDragging ? 10 : 1,
@@ -65,13 +65,13 @@ export default function Card({
     cursor: isDraggable ? "grab" : "pointer",
   };
 
-  const cardData = { name, url, iconUrl: initialIconUrl, color, pagetype };
+  const cardData = { name, url, iconUrl: initialIconUrl, color, category };
 
   return (
     <>
       <a
         ref={setNodeRef}
-        href={del || isDraggable ? null : url}
+        href={isDeleteMode || isDraggable ? null : url}
         target="_blank"
         rel="noreferrer"
         style={style}
@@ -87,7 +87,7 @@ export default function Card({
             position: "relative",
           }}
         >
-          <div className="imgspace">
+          <div className="card-icon-container">
             <img src={iconUrl} alt="icon" onError={handleError} id="icon" />
           </div>
           <div className="card-name">
@@ -108,7 +108,7 @@ export default function Card({
             icon={faXmarkCircle}
             onClick={deleteCard}
             className="x-mark"
-            style={{ display: del ? "block" : "none" }}
+            style={{ display: isDeleteMode ? "block" : "none" }}
           />
         </div>
       </a>
@@ -118,7 +118,7 @@ export default function Card({
           card={cardData}
           data={data}
           onClose={() => setIsEditing(false)}
-          refresh={refresh}
+          refreshData={refreshData}
           notify={notify}
         />
       )}

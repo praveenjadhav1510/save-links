@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./inpexp.css";
+import "./ImportExport.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faXmark,
@@ -12,7 +12,7 @@ import CryptoJS from "crypto-js";
 
 export default function ExportJson({ display, setDisplay, user, notify }) {
   const [receiverName, setReceiverName] = useState("");
-  const userName = user || localStorage.getItem("imuser") || "";
+  const userName = user || localStorage.getItem("user_nickname") || "";
 
   const generateKey = (sender, receiver) => {
     const combined = `${sender.trim()}:${receiver.trim()}`;
@@ -30,7 +30,7 @@ export default function ExportJson({ display, setDisplay, user, notify }) {
       return;
     }
 
-    const rawData = localStorage.getItem("websiteData");
+    const rawData = localStorage.getItem("saved_links_data");
     if (!rawData) {
       notify("No links found to export.");
       return;
@@ -64,37 +64,39 @@ export default function ExportJson({ display, setDisplay, user, notify }) {
   if (!display) return null;
 
   return (
-    <div className="addingCard" style={{ display: "grid" }}>
-      <div className="impexp">
-        <FontAwesomeIcon
-          icon={faXmark}
-          className="close"
-          onClick={() => setDisplay(false)}
-        />
-
+    <div className="modal-overlay" style={{ display: "grid" }}>
+      <div className="import-export-modal">
         <h2>
-          Export links <FontAwesomeIcon icon={faLink} />
+          <span>Export links <FontAwesomeIcon icon={faLink} /></span>
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="close"
+            onClick={() => setDisplay(false)}
+          />
         </h2>
 
-        <div className="btbox">
-          <input
-            className="inputRN"
-            type="text"
-            value={receiverName}
-            onChange={(e) => setReceiverName(e.target.value)}
-            placeholder="Receiver's username"
-          />
+        <div className="import-export-body">
+          <div className="btbox">
+            <input
+              className="inputRN"
+              type="text"
+              value={receiverName}
+              onChange={(e) => setReceiverName(e.target.value)}
+              placeholder="Receiver's username"
+            />
 
-          <button onClick={handleExport}>
-            Download <FontAwesomeIcon icon={faFileArrowDown} />
-          </button>
-        </div>
+            <button onClick={handleExport} className="btn-download">
+              Download <FontAwesomeIcon icon={faFileArrowDown} />
+            </button>
+          </div>
 
-        <div className="infoBox">
-          <p>Logged in as: <span className="highlight">{userName || "Unknown"}</span></p>
-          <p>File: <span className="filename">savelinks_encrypted.txt <FontAwesomeIcon icon={faFileCode} /></span></p>
-          <p>Share this file and both usernames with your friend.</p>
-          <p className="impo">
+          <div className="infoBox">
+            <p>Logged in as: <span className="highlight">{userName || "Unknown"}</span></p>
+            <p>File: <span className="filename">savelinks_encrypted.txt <FontAwesomeIcon icon={faFileCode} /></span></p>
+            <p>Share this file and both usernames with your friend.</p>
+          </div>
+
+          <p className="success-msg">
             End-to-end encrypted <FontAwesomeIcon icon={faAnchorLock} />
           </p>
         </div>

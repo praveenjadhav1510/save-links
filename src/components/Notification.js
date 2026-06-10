@@ -1,5 +1,5 @@
 import React from "react";
-import "./notification.css";
+import "./Notification.css";
 
 /**
  * Renders a vertical stack of notifications.
@@ -12,7 +12,7 @@ export default function Notification({ queue = [], dismiss }) {
       {queue.map((notif) => (
         <div
           key={notif.id}
-          className="notBox"
+          className="notification-item"
           style={{
             background: notif.color + "95",
             boxShadow: "0px 0px 20px " + notif.color,

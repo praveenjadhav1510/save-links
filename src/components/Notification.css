@@ -13,7 +13,7 @@
 }
 
 /* Individual toast – override position so it flows in the stack */
-.notBox {
+.notification-item {
   position: relative !important;
   top: unset;
   margin: auto;

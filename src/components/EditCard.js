@@ -6,18 +6,20 @@ import {
   faPenToSquare,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
+import CATEGORY_LABELS from "./CategoryLabels";
 
 const CATEGORIES = [
-  "WebPage", "Tool", "AI", "Multimedia",
-  "Games", "Blogs", "D-Link", "Private",
+  "WebPage", "AI", "Tool", "Utility",
+  "Development", "Design", "Multimedia", "Games",
+  "Blogs", "D-Link", "Work", "Private", "Favorites",
 ];
 
-export default function EditCard({ card, data, onClose, refresh, notify }) {
+export default function EditCard({ card, data, onClose, refreshData, notify }) {
   const [name, setName] = useState(card.name);
   const [url, setUrl] = useState(card.url);
   const [faviconUrl, setFaviconUrl] = useState(card.iconUrl || "default.svg");
   const [cardColor, setCardColor] = useState(card.color || "#1e1e1e");
-  const [pagetype, setPagetype] = useState(card.pagetype || "WebPage");
+  const [category, setCategory] = useState(card.category || "WebPage");
   const [urlError, setUrlError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -82,21 +84,21 @@ export default function EditCard({ card, data, onClose, refresh, notify }) {
 
     const updated = data.map((item) =>
       item.url === card.url
-        ? { ...item, name, url, iconUrl: faviconUrl, color: cardColor, pagetype }
+        ? { ...item, name, url, iconUrl: faviconUrl, color: cardColor, category }
         : item
     );
 
-    localStorage.setItem("websiteData", JSON.stringify(updated));
+    localStorage.setItem("saved_links_data", JSON.stringify(updated));
     setSaved(true);
     setTimeout(() => {
-      refresh();
+      refreshData();
       notify(`"${name}" updated`, cardColor);
       onClose();
     }, 500);
   };
 
   return (
-    <div className="addingCard edit-card-overlay" onClick={handleBackdropClick}>
+    <div className="modal-overlay edit-card-overlay" onClick={handleBackdropClick}>
       <div
         className="modal-content edit-modal-content"
         ref={modalRef}
@@ -127,7 +129,7 @@ export default function EditCard({ card, data, onClose, refresh, notify }) {
               boxShadow: `0px 10px 25px ${cardColor}50`,
             }}
           >
-            <div className="imgspace">
+            <div className="card-icon-container">
               {loading ? (
                 <FontAwesomeIcon icon={faCircleNotch} spin style={{ color: "white" }} />
               ) : (
@@ -190,10 +192,10 @@ export default function EditCard({ card, data, onClose, refresh, notify }) {
               {CATEGORIES.map((type) => (
                 <div
                   key={type}
-                  className={`type-chip ${pagetype === type ? "active" : ""}`}
-                  onClick={() => setPagetype(type)}
+                  className={`type-chip ${category === type ? "active" : ""}`}
+                  onClick={() => setCategory(type)}
                 >
-                  {type}
+                  {CATEGORY_LABELS[type] || type}
                 </div>
               ))}
             </div>

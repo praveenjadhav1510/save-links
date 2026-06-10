@@ -2,21 +2,21 @@ import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faUserPen, faCheck } from "@fortawesome/free-solid-svg-icons";
 
-export default function User({ submit, setSubmit, setUser, notify }) {
+export default function UserIdentity({ isUserModalOpen, setIsUserModalOpen, setUser, notify }) {
   const [userInput, setUserInput] = useState("");
   const modalRef = useRef();
 
   useEffect(() => {
     const handleEsc = (event) => {
-      if (event.key === "Escape") setSubmit(false);
+      if (event.key === "Escape") setIsUserModalOpen(false);
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
-  }, [setSubmit]);
+  }, [setIsUserModalOpen]);
 
   const handleBackdropClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
-      setSubmit(false);
+      setIsUserModalOpen(false);
     }
   };
 
@@ -25,17 +25,17 @@ export default function User({ submit, setSubmit, setUser, notify }) {
       notify("Please enter a nickname.");
       return;
     }
-    localStorage.setItem("imuser", userInput);
+    localStorage.setItem("user_nickname", userInput);
     setUser(userInput);
-    setSubmit(false);
+    setIsUserModalOpen(false);
     notify("New nickname " + userInput + " set!");
   };
 
-  if (!submit) return null;
+  if (!isUserModalOpen) return null;
 
   return (
     <div
-      className="addingCard"
+      className="modal-overlay"
       style={{ display: "flex" }}
       onClick={handleBackdropClick}
     >
@@ -45,7 +45,7 @@ export default function User({ submit, setSubmit, setUser, notify }) {
             <FontAwesomeIcon icon={faUserPen} style={{ marginRight: "10px", opacity: 0.7 }} />
             Define Identity
           </h3>
-          <FontAwesomeIcon icon={faXmark} className="close-btn" onClick={() => setSubmit(false)} />
+          <FontAwesomeIcon icon={faXmark} className="close-btn" onClick={() => setIsUserModalOpen(false)} />
         </div>
 
         <div className="details redesigned">
@@ -53,7 +53,7 @@ export default function User({ submit, setSubmit, setUser, notify }) {
             <label>Nickname or Username</label>
             <input
               type="text"
-              className="inputun modern-input"
+              className="modern-input"
               placeholder="e.g., Master Programmer"
               autoFocus
               value={userInput}
@@ -63,7 +63,7 @@ export default function User({ submit, setSubmit, setUser, notify }) {
           </div>
 
           <div className="modal-footer">
-            <button className="btn-cancel" onClick={() => setSubmit(false)}>
+            <button className="btn-cancel" onClick={() => setIsUserModalOpen(false)}>
               Keep current
             </button>
             <button className="btn-save accent" onClick={saveUser}>

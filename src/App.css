@@ -98,7 +98,7 @@ body {
   animation: of-set 0.5s alternate ease-in;
 }
 
-.imgspace {
+.card-icon-container {
   min-width: 60px !important;
   margin-left: -10px;
   margin-right: 10px;
@@ -110,7 +110,7 @@ body {
   place-items: center;
 }
 
-.imgspace img {
+.card-icon-container img {
   width: 50px;
   height: 50px;
   border-radius: 50px;
@@ -120,7 +120,7 @@ a {
   text-decoration: none;
 }
 
-.addingCard {
+.modal-overlay {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -355,9 +355,11 @@ a {
 
 .redesigned-user {
   max-width: 420px !important;
-  background: #2a2a2a !important;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6) !important;
   padding: 30px !important;
 }
 

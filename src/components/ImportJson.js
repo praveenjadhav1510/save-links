@@ -3,7 +3,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import CryptoJS from "crypto-js";
 
-import "./inpexp.css";
+import "./ImportExport.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faXmark,
@@ -13,7 +13,7 @@ import {
   faReplyAll,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function ImportJson({ display, setDisplay, refresh, notify }) {
+export default function ImportJson({ display, setDisplay, refreshData, notify }) {
   const [fileContent, setFileContent] = useState(null);
   const [senderName, setSenderName] = useState("");
 
@@ -24,7 +24,7 @@ export default function ImportJson({ display, setDisplay, refresh, notify }) {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    const receiverName = localStorage.getItem("imuser");
+    const receiverName = localStorage.getItem("user_nickname");
 
     if (!senderName.trim()) {
       notify("Please enter the sender's username before choosing a file.");
@@ -69,14 +69,14 @@ export default function ImportJson({ display, setDisplay, refresh, notify }) {
   const addData = () => {
     if (!fileContent) return;
 
-    const existingData = JSON.parse(localStorage.getItem("websiteData")) || [];
+    const existingData = JSON.parse(localStorage.getItem("saved_links_data")) || [];
     const newFileContent = Array.isArray(fileContent) ? fileContent : [fileContent];
 
     const combinedData = [...existingData, ...newFileContent];
-    localStorage.setItem("websiteData", JSON.stringify(combinedData));
+    localStorage.setItem("saved_links_data", JSON.stringify(combinedData));
 
     setDisplay(false);
-    refresh();
+    refreshData();
     notify(`${newFileContent.length} links added. Total: ${combinedData.length}`);
   };
 
@@ -84,47 +84,36 @@ export default function ImportJson({ display, setDisplay, refresh, notify }) {
     if (!fileContent) return;
 
     const newFileContent = Array.isArray(fileContent) ? fileContent : [fileContent];
-    localStorage.setItem("websiteData", JSON.stringify(newFileContent));
+    localStorage.setItem("saved_links_data", JSON.stringify(newFileContent));
 
     setDisplay(false);
-    refresh();
+    refreshData();
     notify(`${newFileContent.length} links replaced existing ones.`);
   };
 
   if (!display) return null;
 
   return (
-    <div className="addingCard" style={{ display: "grid" }}>
-      <div className="impexp">
-        <FontAwesomeIcon
-          icon={faXmark}
-          className="close"
-          onClick={() => setDisplay(false)}
-        />
+    <div className="modal-overlay" style={{ display: "grid" }}>
+      <div className="import-export-modal">
         <h2>
-          Import links <FontAwesomeIcon icon={faLink} />
+          <span>Import links <FontAwesomeIcon icon={faLink} /></span>
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="close"
+            onClick={() => setDisplay(false)}
+          />
         </h2>
 
-        <input
-          type="file"
-          accept=".txt,.json"
-          onChange={handleFileChange}
-          id="fileInput"
-          className="hidden-file-input"
-        />
+        <div className="import-export-body">
+          <input
+            type="file"
+            accept=".txt,.json"
+            onChange={handleFileChange}
+            id="fileInput"
+            className="hidden-file-input"
+          />
 
-        {fileContent && (
-          <SyntaxHighlighter
-            className="code"
-            language="json"
-            style={coldarkDark}
-            showLineNumbers
-          >
-            {JSON.stringify(fileContent, null, 2)}
-          </SyntaxHighlighter>
-        )}
-
-        <div className="btbox">
           <input
             className="inputRN"
             type="text"
@@ -137,13 +126,25 @@ export default function ImportJson({ display, setDisplay, refresh, notify }) {
             Choose File <FontAwesomeIcon icon={faFileCode} />
           </label>
 
-          <button onClick={addData} disabled={!fileContent}>
-            Add <FontAwesomeIcon icon={faFileCirclePlus} />
-          </button>
+          {fileContent && (
+            <SyntaxHighlighter
+              className="code"
+              language="json"
+              style={coldarkDark}
+            >
+              {JSON.stringify(fileContent, null, 2)}
+            </SyntaxHighlighter>
+          )}
 
-          <button onClick={replaceData} disabled={!fileContent}>
-            Replace <FontAwesomeIcon icon={faReplyAll} />
-          </button>
+          <div className="btbox-row">
+            <button onClick={addData} disabled={!fileContent}>
+              Add <FontAwesomeIcon icon={faFileCirclePlus} />
+            </button>
+
+            <button onClick={replaceData} disabled={!fileContent}>
+              Replace <FontAwesomeIcon icon={faReplyAll} />
+            </button>
+          </div>
         </div>
       </div>
     </div>

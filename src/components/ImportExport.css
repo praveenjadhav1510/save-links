@@ -1,0 +1,183 @@
+.import-export-modal {
+  width: 90%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  color: white;
+  margin: auto;
+}
+
+.import-export-modal h2 {
+  padding: 20px 24px;
+  margin: 0;
+  font-size: 1.25rem;
+  color: white;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.import-export-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.import-export-modal button {
+  padding: 14px 24px;
+  border-radius: 14px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.import-export-modal button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.import-export-modal button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.import-export-modal .success-msg {
+  background: rgba(29, 255, 119, 0.15);
+  border-radius: 12px;
+  padding: 12px;
+  color: #1dff77;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.import-export-modal .close {
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.2s, transform 0.2s;
+  font-size: 1.2rem;
+}
+
+.import-export-modal .close:hover {
+  color: white;
+  transform: rotate(90deg);
+}
+
+.code {
+  margin-top: 10px;
+  height: fit-content;
+  max-height: 250px;
+  overflow-y: auto;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+.custom-file-label {
+  padding: 14px 24px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.custom-file-label:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #6cb8e6;
+  color: #6cb8e6;
+}
+
+.btbox {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btbox-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btbox-row button, .btbox-row .custom-file-label {
+  flex: 1;
+  min-width: 140px;
+}
+
+.inputRN {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 20px;
+  border-radius: 14px;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.inputRN:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  outline: none;
+}
+
+.infoBox {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 16px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.infoBox p {
+  margin: 0;
+}
+
+.highlight {
+  color: #6cb8e6;
+  font-weight: 600;
+}
+
+.filename {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 6px;
+  color: white;
+  font-family: monospace;
+}
+

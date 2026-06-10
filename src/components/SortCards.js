@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./sorter.css";
+import "./SortCards.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeadphones,
@@ -11,6 +11,11 @@ import {
   faBlog,
   faCloudArrowDown,
   faLock,
+  faGear,
+  faCode,
+  faPalette,
+  faBriefcase,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function SortCards({ sortDisplay, setSortDisplay, sortType, setSortType }) {
@@ -39,6 +44,14 @@ export default function SortCards({ sortDisplay, setSortDisplay, sortType, setSo
         </div>
 
         <div
+          className={`sorter-item ${sortType === "AI" ? "active" : ""}`}
+          onClick={() => setSortType("AI")}
+        >
+          <span className="icon-text">AI</span>
+          <span className="label">AI</span>
+        </div>
+
+        <div
           className={`sorter-item ${sortType === "Tool" ? "active" : ""}`}
           onClick={() => setSortType("Tool")}
         >
@@ -47,11 +60,27 @@ export default function SortCards({ sortDisplay, setSortDisplay, sortType, setSo
         </div>
 
         <div
-          className={`sorter-item ${sortType === "AI" ? "active" : ""}`}
-          onClick={() => setSortType("AI")}
+          className={`sorter-item ${sortType === "Utility" ? "active" : ""}`}
+          onClick={() => setSortType("Utility")}
         >
-          <span className="icon-text">AI</span>
-          <span className="label">AI</span>
+          <FontAwesomeIcon icon={faGear} className="icon" />
+          <span className="label">Utility</span>
+        </div>
+
+        <div
+          className={`sorter-item ${sortType === "Development" ? "active" : ""}`}
+          onClick={() => setSortType("Development")}
+        >
+          <FontAwesomeIcon icon={faCode} className="icon" />
+          <span className="label">Development</span>
+        </div>
+
+        <div
+          className={`sorter-item ${sortType === "Design" ? "active" : ""}`}
+          onClick={() => setSortType("Design")}
+        >
+          <FontAwesomeIcon icon={faPalette} className="icon" />
+          <span className="label">Design</span>
         </div>
 
         <div
@@ -90,11 +119,27 @@ export default function SortCards({ sortDisplay, setSortDisplay, sortType, setSo
         </div>
 
         <div
+          className={`sorter-item ${sortType === "Work" ? "active" : ""}`}
+          onClick={() => setSortType("Work")}
+        >
+          <FontAwesomeIcon icon={faBriefcase} className="icon" />
+          <span className="label">Work</span>
+        </div>
+
+        <div
           className={`sorter-item ${sortType === "Private" ? "active" : ""}`}
           onClick={() => setSortType("Private")}
         >
           <FontAwesomeIcon icon={faLock} className="icon" />
           <span className="label">Private</span>
+        </div>
+
+        <div
+          className={`sorter-item ${sortType === "Favorites" ? "active" : ""}`}
+          onClick={() => setSortType("Favorites")}
+        >
+          <FontAwesomeIcon icon={faStar} className="icon" />
+          <span className="label">Favorites</span>
         </div>
       </div>
     </div>
