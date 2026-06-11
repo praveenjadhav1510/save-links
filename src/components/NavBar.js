@@ -15,6 +15,7 @@ import {
 import ExportJson from "./ExportJson";
 import ImportJson from "./ImportJson";
 import CATEGORY_LABELS from "./CategoryLabels";
+import { SORT_FILTERS } from "../constants";
 
 import "./NavBar.css";
 
@@ -30,6 +31,7 @@ export default function NavBar({
   isEditMode,
   setIsEditMode,
   sortType,
+  setSortType,
   searchQuery,
   setSearchQuery,
   setIsShortcutsModalOpen,
@@ -40,6 +42,12 @@ export default function NavBar({
   isDeleteMode,
   searchInputRef,
 }) {
+  const currentIndex = SORT_FILTERS.indexOf(sortType);
+  const prevIndex = (currentIndex - 1 + SORT_FILTERS.length) % SORT_FILTERS.length;
+  const nextIndex = (currentIndex + 1) % SORT_FILTERS.length;
+
+  const getLabel = (type) => (type === "WebPage" ? "All" : CATEGORY_LABELS[type] || type);
+
   const toggleDelete = () => {
     const nextState = !isDeleteMode;
     setIsDeleteMode(nextState);
@@ -62,13 +70,19 @@ export default function NavBar({
             <span className="tooltip">Edit Identity</span>
           </div>
           <span className="user-name-text">
-            {user}'s links{" "}
-            {sortType && (
-              <span className="sort-indicator">
-                {" "}
-                / {sortType === "WebPage" ? "All" : CATEGORY_LABELS[sortType] || sortType}
-              </span>
-            )}
+            {user}'s links
+          </span>
+        </div>
+
+        <div className="filter-nav-navbar">
+          <span className="filter-nav-item side" onClick={() => setSortType(SORT_FILTERS[prevIndex])}>
+            {getLabel(SORT_FILTERS[prevIndex])}
+          </span>
+          <span className="filter-nav-item current">
+            {getLabel(SORT_FILTERS[currentIndex])}
+          </span>
+          <span className="filter-nav-item side" onClick={() => setSortType(SORT_FILTERS[nextIndex])}>
+            {getLabel(SORT_FILTERS[nextIndex])}
           </span>
         </div>
 

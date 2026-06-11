@@ -1,0 +1,15 @@
+export const SORT_FILTERS = [
+  "WebPage",
+  "AI",
+  "Tool",
+  "Utility",
+  "Development",
+  "Design",
+  "Multimedia",
+  "Games",
+  "Blogs",
+  "D-Link",
+  "Work",
+  "Private",
+  "Favorites",
+];

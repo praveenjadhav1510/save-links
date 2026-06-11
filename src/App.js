@@ -8,6 +8,7 @@ import Notification from "./components/Notification";
 import SortCards from "./components/SortCards";
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import ShortcutsModal from "./components/ShortcutsModal";
+import { SORT_FILTERS } from "./constants";
 import {
   DndContext,
   closestCenter,
@@ -31,22 +32,6 @@ const DEFAULT_DATA = [
     color: "#1e1e1e",
     category: "Generative-AI",
   },
-];
-
-const SORT_FILTERS = [
-  "WebPage",
-  "AI",
-  "Tool",
-  "Utility",
-  "Development",
-  "Design",
-  "Multimedia",
-  "Games",
-  "Blogs",
-  "D-Link",
-  "Work",
-  "Private",
-  "Favorites",
 ];
 
 function App() {
@@ -106,9 +91,14 @@ function App() {
         return;
       }
 
-      if (e.key === "/" || e.key === "s" || e.key === "S") {
+      if (e.key === "/") {
         e.preventDefault();
         searchInputRef.current?.focus();
+        return;
+      }
+
+      if (e.key === "s" || e.key === "S") {
+        setSortType("WebPage");
         return;
       }
 
@@ -233,6 +223,7 @@ function App() {
         exportVisible={exportVisible}
         isDeleteMode={isDeleteMode}
         searchInputRef={searchInputRef}
+        setSortType={setSortType}
       />
       <DndContext
         sensors={sensors}
