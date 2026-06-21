@@ -2,7 +2,7 @@ body {
   box-sizing: border-box;
   width: 100%;
   height: 100vh;
-  padding: 2em;
+  padding: 1.8em;
   font-family: sans-serif;
   user-select: none;
   background-color: #e7e7e7;
@@ -13,22 +13,22 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
-  padding-bottom: 100px;
-  padding-top: 40px;
+  gap: 13px;
+  padding-bottom: 90px;
+  padding-top: 36px;
 }
 
 .card {
-  width: 250px;
+  width: 225px;
   color: white;
   background: #1e1e1e;
   display: flex;
   box-sizing: border-box;
-  line-height: 60px;
-  padding: 1em;
+  line-height: 54px;
+  padding: 0.9em;
   overflow: hidden;
-  padding-left: 1.5em;
-  border-radius: 50px 15px 15px 50px;
+  padding-left: 1.35em;
+  border-radius: 45px 13px 13px 45px;
   box-shadow: 0px 0px 20px #1e1e1e80;
   animation: of-set 0.4s alternate ease-in;
   transition: all 0.5s ease-out;
@@ -58,7 +58,7 @@ body {
 
 .card-name {
   width: 100%;
-  font-size: 18px;
+  font-size: 16px;
   white-space: nowrap;
   overflow: hidden;
   position: relative;
@@ -99,11 +99,11 @@ body {
 }
 
 .card-icon-container {
-  min-width: 60px !important;
-  margin-left: -10px;
-  margin-right: 10px;
-  width: 60px;
-  height: 60px;
+  min-width: 54px !important;
+  margin-left: -9px;
+  margin-right: 9px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   background: #ffffffaf;
   display: grid;
@@ -111,9 +111,9 @@ body {
 }
 
 .card-icon-container img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
+  width: 45px;
+  height: 45px;
+  border-radius: 45px;
 }
 
 a {

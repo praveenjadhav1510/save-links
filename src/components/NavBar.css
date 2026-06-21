@@ -2,12 +2,12 @@
   position: fixed;
   top: 0;
   width: 100vw;
-  height: 55px;
+  height: 50px;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 9px;
   padding-left: 1em;
   padding-right: 1em;
-  font-size: 20px;
+  font-size: 18px;
   color: white;
   background: rgb(38 38 64 / 25%);
   backdrop-filter: blur(20px);
@@ -138,8 +138,8 @@
 .importbox div {
   display: grid;
   place-items: center;
-  min-width: 25px;
-  min-height: 25px;
+  min-width: 23px;
+  min-height: 23px;
   background: white;
   color: #1e1e1e;
   padding: 5px;
@@ -221,8 +221,8 @@
   .header {
     backdrop-filter: unset;
     height: auto;
-    min-height: 55px;
-    padding-bottom: 10px;
+    min-height: 50px;
+    padding-bottom: 9px;
   }
 
   .search-container {
