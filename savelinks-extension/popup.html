@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Save Links</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="popup-header">
+      <svg class="popup-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+        <path fill="#111" d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/>
+      </svg>
+      <h1>Save Links</h1>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Status area (hidden by default) -->
+    <div id="status" class="status hidden"></div>
+
+    <!-- Page preview -->
+    <div id="page-preview" class="page-preview">
+      <img id="preview-favicon" class="preview-favicon" src="" alt="" />
+      <div class="preview-info">
+        <span id="preview-title" class="preview-title">Loading…</span>
+        <span id="preview-url" class="preview-url"></span>
+      </div>
+    </div>
+
+    <!-- Save button -->
+    <button id="save-btn" class="save-btn" disabled>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+        <polyline points="17 21 17 13 7 13 7 21"/>
+        <polyline points="7 3 7 8 15 8"/>
+      </svg>
+      Save This Page
+    </button>
+
+    <!-- Shortcuts hint -->
+    <div class="shortcuts-hint">
+      <span class="kbd">Ctrl+Shift+S</span>
+      <span class="kbd">Ctrl+Shift+U</span>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

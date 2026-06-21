@@ -96,6 +96,26 @@ function App() {
     };
   }, [pushNotification]);
 
+  // ── Browser extension integration ──
+  // Listens for custom events dispatched by the Save Links extension's
+  // content script after a link is saved or a duplicate is detected.
+  useEffect(() => {
+    const handleExtensionSave = (e) => {
+      const { success, duplicate, name, color } = e.detail;
+      if (success) {
+        pushNotification(`${name} saved from extension`, color || "#1dff77");
+        refreshData();
+      } else if (duplicate) {
+        pushNotification(`${name} already exists`, "#ffaa00");
+      }
+    };
+
+    window.addEventListener("savelinks-extension-saved", handleExtensionSave);
+    return () => {
+      window.removeEventListener("savelinks-extension-saved", handleExtensionSave);
+    };
+  }, [pushNotification, refreshData]);
+
   // Keyboard navigation for filters and more
   useEffect(() => {
     const handleKeyDown = (e) => {

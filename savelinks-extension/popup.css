@@ -1,0 +1,212 @@
+/* ── Reset & Base ──────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 320px;
+  font-family: -apple-system, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+  background: #ffffff;
+  color: #111111;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Container ─────────────────────────────────────────────────────── */
+.popup-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Header ────────────────────────────────────────────────────────── */
+.popup-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.popup-logo {
+  width: 22px;
+  height: 22px;
+}
+
+.popup-header h1 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: -0.4px;
+}
+
+/* ── Divider ───────────────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: #e8e8e8;
+  margin: -2px 0;
+}
+
+/* ── Page Preview ──────────────────────────────────────────────────── */
+.page-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8f8f8;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.page-preview:hover {
+  border-color: #d0d0d0;
+}
+
+.preview-favicon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  object-fit: contain;
+  background: #f0f0f0;
+  padding: 3px;
+}
+
+.preview-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.preview-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.preview-url {
+  font-size: 11px;
+  color: #888888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Save Button ───────────────────────────────────────────────────── */
+.save-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: #111111;
+  color: #ffffff;
+  letter-spacing: 0.1px;
+}
+
+.save-btn:hover:not(:disabled) {
+  background: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.save-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.save-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.save-btn.saving {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.save-btn.saved {
+  background: #111111;
+}
+
+.save-btn.error {
+  background: #dc2626;
+}
+
+/* ── Status ────────────────────────────────────────────────────────── */
+.status {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  animation: slideDown 0.2s ease;
+}
+
+.status.hidden {
+  display: none;
+}
+
+.status.success {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.status.error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.status.duplicate {
+  background: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+/* ── Shortcuts Hint ────────────────────────────────────────────────── */
+.shortcuts-hint {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.kbd {
+  display: inline-block;
+  padding: 3px 7px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+  color: #999999;
+  background: #f5f5f5;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  letter-spacing: 0.2px;
+}
+
+/* ── Animations ────────────────────────────────────────────────────── */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
