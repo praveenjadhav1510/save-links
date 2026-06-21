@@ -41,6 +41,7 @@ export default function NavBar({
   exportVisible,
   isDeleteMode,
   searchInputRef,
+  isOnline,
 }) {
   const currentIndex = SORT_FILTERS.indexOf(sortType);
   const prevIndex = (currentIndex - 1 + SORT_FILTERS.length) % SORT_FILTERS.length;
@@ -71,6 +72,7 @@ export default function NavBar({
           </div>
           <span className="user-name-text">
             {user}'s links
+            {!isOnline && <span className="offline-badge">Offline</span>}
           </span>
         </div>
 

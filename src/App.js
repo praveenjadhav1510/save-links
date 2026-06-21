@@ -50,6 +50,7 @@ function App() {
   const [isShortcutsModalOpen, setIsShortcutsModalOpen] = useState(false);
   const [importVisible, setImportVisible] = useState(false);
   const [exportVisible, setExportVisible] = useState(false);
+  const [isOnline, setIsOnline] = useState(() => navigator.onLine);
 
   const searchInputRef = useRef(null);
 
@@ -74,6 +75,26 @@ function App() {
   const dismissNotification = useCallback((id) => {
     setNotifQueue((prev) => prev.filter((n) => n.id !== id));
   }, []);
+
+  // ── Online/Offline status monitoring ──
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOnline(true);
+      pushNotification("Back online!", "#1dff77");
+    };
+    const handleOffline = () => {
+      setIsOnline(false);
+      pushNotification("You are working offline", "#ffaa00");
+    };
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, [pushNotification]);
 
   // Keyboard navigation for filters and more
   useEffect(() => {
@@ -224,6 +245,7 @@ function App() {
         isDeleteMode={isDeleteMode}
         searchInputRef={searchInputRef}
         setSortType={setSortType}
+        isOnline={isOnline}
       />
       <DndContext
         sensors={sensors}

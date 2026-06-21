@@ -287,3 +287,34 @@
 .edit-mode-btn.edit-mode-active svg {
   color: white;
 }
+
+.offline-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  background-color: rgba(255, 170, 0, 0.2);
+  color: #ffaa00;
+  border: 1px solid rgba(255, 170, 0, 0.4);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+  box-shadow: 0 0 10px rgba(255, 170, 0, 0.1);
+  animation: pulseOffline 2s infinite ease-in-out;
+}
+
+@keyframes pulseOffline {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(255, 170, 0, 0.25);
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
