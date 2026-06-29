@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faUserPen, faCheck } from "@fortawesome/free-solid-svg-icons";
+import "./ImportExport.css";
 
 export default function UserIdentity({ isUserModalOpen, setIsUserModalOpen, setUser, notify }) {
   const [userInput, setUserInput] = useState("");
@@ -13,6 +14,12 @@ export default function UserIdentity({ isUserModalOpen, setIsUserModalOpen, setU
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, [setIsUserModalOpen]);
+
+  useEffect(() => {
+    if (isUserModalOpen) {
+      setUserInput(localStorage.getItem("user_nickname") || "");
+    }
+  }, [isUserModalOpen]);
 
   const handleBackdropClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
@@ -39,35 +46,42 @@ export default function UserIdentity({ isUserModalOpen, setIsUserModalOpen, setU
       style={{ display: "flex" }}
       onClick={handleBackdropClick}
     >
-      <div className="modal-content redesigned-user" ref={modalRef}>
-        <div className="modal-header">
-          <h3>
-            <FontAwesomeIcon icon={faUserPen} style={{ marginRight: "10px", opacity: 0.7 }} />
-            Define Identity
-          </h3>
-          <FontAwesomeIcon icon={faXmark} className="close-btn" onClick={() => setIsUserModalOpen(false)} />
-        </div>
+      <div className="import-export-modal export-modal-redesign identity-modal-redesign" ref={modalRef}>
+        <h2>
+          <span className="modal-title">
+            <FontAwesomeIcon icon={faUserPen} className="shield-icon" /> Define Identity
+          </span>
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="close"
+            onClick={() => setIsUserModalOpen(false)}
+          />
+        </h2>
 
-        <div className="details redesigned">
-          <div className="input-group">
-            <label>Nickname or Username</label>
-            <input
-              type="text"
-              className="modern-input"
-              placeholder="e.g., Master Programmer"
-              autoFocus
-              value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
-              onKeyDown={(e) => { if (e.key === "Enter") saveUser(); }}
-            />
+        <div className="import-export-body">
+          <div className="export-form-group">
+            <div className="input-field-wrapper">
+              <label htmlFor="userInputField" className="field-label">Nickname or Username</label>
+              <input
+                id="userInputField"
+                type="text"
+                className="inputRN redesigned-input"
+                placeholder="e.g., Master Programmer"
+                autoFocus
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
+                onKeyDown={(e) => { if (e.key === "Enter") saveUser(); }}
+              />
+              <span className="input-help">This name is used as the sender name when exporting links.</span>
+            </div>
           </div>
 
-          <div className="modal-footer">
-            <button className="btn-cancel" onClick={() => setIsUserModalOpen(false)}>
-              Keep current
+          <div className="export-actions">
+            <button className="btn-download btn-export-primary" onClick={saveUser}>
+              Set Nickname <FontAwesomeIcon icon={faCheck} />
             </button>
-            <button className="btn-save accent" onClick={saveUser}>
-              <FontAwesomeIcon icon={faCheck} /> Set Nickname
+            <button className="btn-download btn-export-secondary" onClick={() => setIsUserModalOpen(false)}>
+              Keep Current
             </button>
           </div>
         </div>
@@ -75,3 +89,4 @@ export default function UserIdentity({ isUserModalOpen, setIsUserModalOpen, setU
     </div>
   );
 }
+
