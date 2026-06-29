@@ -8,6 +8,7 @@ import Notification from "./components/Notification";
 import SortCards from "./components/SortCards";
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import ShortcutsModal from "./components/ShortcutsModal";
+import SettingsModal from "./components/SettingsModal";
 import { SORT_FILTERS } from "./constants";
 import {
   DndContext,
@@ -34,6 +35,14 @@ const DEFAULT_DATA = [
   },
 ];
 
+const DEFAULT_SETTINGS = {
+  theme: "light",
+  openInNewTab: true,
+  cardDensity: "comfortable",
+  customBgColor: "",
+  customIconColor: "",
+};
+
 function App() {
   const [storedData, setStoredData] = useState(() => {
     const saved = localStorage.getItem("saved_links_data");
@@ -48,6 +57,11 @@ function App() {
   const [isDraggable, setIsDraggable] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isShortcutsModalOpen, setIsShortcutsModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [settings, setSettings] = useState(() => {
+    const saved = localStorage.getItem("saved_links_settings");
+    return saved ? { ...DEFAULT_SETTINGS, ...JSON.parse(saved) } : DEFAULT_SETTINGS;
+  });
   const [importVisible, setImportVisible] = useState(false);
   const [exportVisible, setExportVisible] = useState(false);
   const [isOnline, setIsOnline] = useState(() => navigator.onLine);
@@ -115,6 +129,20 @@ function App() {
       window.removeEventListener("savelinks-extension-saved", handleExtensionSave);
     };
   }, [pushNotification, refreshData]);
+
+  // Apply dark/light theme to document body and update CSS custom properties
+  useEffect(() => {
+    const root = document.documentElement;
+    if (settings.theme === "dark") {
+      document.body.classList.add("dark-theme");
+      root.style.setProperty("--bg-color", settings.customBgColor || "#121212");
+      root.style.setProperty("--icon-color", settings.customIconColor || "#f5f5f5");
+    } else {
+      document.body.classList.remove("dark-theme");
+      root.style.setProperty("--bg-color", settings.customBgColor || "#e7e7e7");
+      root.style.setProperty("--icon-color", settings.customIconColor || "#1e1e1e");
+    }
+  }, [settings.theme, settings.customBgColor, settings.customIconColor]);
 
   // Keyboard navigation for filters and more
   useEffect(() => {
@@ -242,7 +270,7 @@ function App() {
   const sortableItems = useMemo(() => filteredData.map((item) => item.url), [filteredData]);
 
   return (
-    <div className="App">
+    <div className={`App density-${settings.cardDensity}`}>
       <NavBar
         setIsUserModalOpen={setIsUserModalOpen}
         setIsDeleteMode={setIsDeleteMode}
@@ -266,6 +294,9 @@ function App() {
         searchInputRef={searchInputRef}
         setSortType={setSortType}
         isOnline={isOnline}
+        filteredData={filteredData}
+        setIsSettingsModalOpen={setIsSettingsModalOpen}
+        openInNewTab={settings.openInNewTab}
       />
       <DndContext
         sensors={sensors}
@@ -289,6 +320,7 @@ function App() {
               refreshData={refreshData}
               notify={pushNotification}
               isDraggable={isDraggable}
+              openInNewTab={settings.openInNewTab}
             />
           ))}
         </SortableContext>
@@ -314,6 +346,12 @@ function App() {
       <ShortcutsModal
         isOpen={isShortcutsModalOpen}
         onClose={() => setIsShortcutsModalOpen(false)}
+      />
+      <SettingsModal
+        isOpen={isSettingsModalOpen}
+        onClose={() => setIsSettingsModalOpen(false)}
+        settings={settings}
+        setSettings={setSettings}
       />
     </div>
   );

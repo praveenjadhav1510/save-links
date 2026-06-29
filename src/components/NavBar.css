@@ -141,7 +141,7 @@
   min-width: 23px;
   min-height: 23px;
   background: white;
-  color: #1e1e1e;
+  color: var(--icon-color, #1e1e1e);
   padding: 5px;
   border-radius: 7px;
   cursor: pointer;
@@ -194,7 +194,6 @@
 
 .fin,
 .fex {
-  color: #1e1e1e;
   transition: all 0.5s;
 }
 

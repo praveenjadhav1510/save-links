@@ -19,6 +19,7 @@ export default function Card({
   refreshData,
   notify,
   isDraggable,
+  openInNewTab,
 }) {
   const [iconUrl, setIconUrl] = useState(initialIconUrl);
   const [isEditing, setIsEditing] = useState(false);
@@ -72,10 +73,10 @@ export default function Card({
       <a
         ref={setNodeRef}
         href={isDeleteMode || isDraggable ? null : url}
-        target="_blank"
+        target={openInNewTab ? "_blank" : "_self"}
         rel="noreferrer"
         style={style}
-        className={isDragging ? "dragging" : ""}
+        className={`card-link ${isDragging ? "dragging" : ""}`}
         {...attributes}
         {...(isDraggable ? listeners : {})}
       >
@@ -85,6 +86,7 @@ export default function Card({
             background: color,
             boxShadow: `0px 0px 20px ${color}80`,
             position: "relative",
+            "--card-color": color,
           }}
         >
           <div className="card-icon-container">

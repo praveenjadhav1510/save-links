@@ -6,10 +6,12 @@ import {
   faFileExport,
   faTrash,
   faSort,
-  faDice,
+  faGrip,
   faMagnifyingGlass,
   faXmark,
-  faInfo
+  faCircleQuestion,
+  faUserPen,
+  faGear
 } from "@fortawesome/free-solid-svg-icons";
 
 import ExportJson from "./ExportJson";
@@ -42,6 +44,9 @@ export default function NavBar({
   isDeleteMode,
   searchInputRef,
   isOnline,
+  filteredData,
+  setIsSettingsModalOpen,
+  openInNewTab,
 }) {
   const currentIndex = SORT_FILTERS.indexOf(sortType);
   const prevIndex = (currentIndex - 1 + SORT_FILTERS.length) % SORT_FILTERS.length;
@@ -58,13 +63,21 @@ export default function NavBar({
     }
   };
 
+  const handleSearchKeyDown = (e) => {
+    if (e.key === "Enter") {
+      if (filteredData && filteredData.length > 0) {
+        window.open(filteredData[0].url, openInNewTab ? "_blank" : "_self", "noreferrer");
+      }
+    }
+  };
+
   return (
     <>
       <div className="header">
         <div className="userbox">
           <div className="tooltip-container">
             <FontAwesomeIcon
-              icon={faPenToSquare}
+              icon={faUserPen}
               className="edit"
               onClick={() => setIsUserModalOpen(true)}
             />
@@ -95,6 +108,7 @@ export default function NavBar({
             placeholder="Search links..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearchKeyDown}
             className="search-input"
             ref={searchInputRef}
           />
@@ -112,8 +126,16 @@ export default function NavBar({
             className="tooltip-container info-btn"
             onClick={() => setIsShortcutsModalOpen(true)}
           >
-            <FontAwesomeIcon icon={faInfo} />
+            <FontAwesomeIcon icon={faCircleQuestion} />
             <span className="tooltip help">Help</span>
+          </div>
+
+          <div
+            className="tooltip-container"
+            onClick={() => setIsSettingsModalOpen(true)}
+          >
+            <FontAwesomeIcon icon={faGear} />
+            <span className="tooltip settings">Settings</span>
           </div>
 
           <div onClick={() => setSortDisplay(true)} className="tooltip-container">
@@ -130,9 +152,9 @@ export default function NavBar({
                 nextDraggable ? "#1dff77" : "#1e1e1e"
               );
             }}
-            style={{ color: isDraggable ? "#1dff77" : "black" }}
+            style={{ color: isDraggable ? "#1dff77" : undefined }}
           >
-            <FontAwesomeIcon icon={faDice} />
+            <FontAwesomeIcon icon={faGrip} />
             <span className="tooltip arrange">Arrange</span>
           </div>
 
@@ -155,7 +177,7 @@ export default function NavBar({
             <span className="tooltip edit-tooltip">Edit cards</span>
           </div>
 
-          <div onClick={toggleDelete} style={{ color: isDeleteMode ? "red" : "black" }} className="tooltip-container">
+          <div onClick={toggleDelete} style={{ color: isDeleteMode ? "red" : undefined }} className="tooltip-container">
             <FontAwesomeIcon className="ic" icon={faTrash} />
             <span className="tooltip delete">Trash box</span>
           </div>
