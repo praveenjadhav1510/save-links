@@ -64,4 +64,31 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       sendResponse({ success: false, error: err.message });
     }
   }
+
+  if (message.action === "get-favicon") {
+    chrome.runtime.sendMessage(
+      { action: "get-favicon", url: message.url },
+      (response) => {
+        if (chrome.runtime.lastError) {
+          sendResponse({ faviconUrl: null });
+          return;
+        }
+        sendResponse(response || { faviconUrl: null });
+      }
+    );
+    return true;
+  }
 });
+
+// Bridge: expose a global function for the React app to call
+window.__savelinksExtension = (data) => {
+  return new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage(data, (response) => {
+      if (chrome.runtime.lastError) {
+        reject(new Error(chrome.runtime.lastError.message));
+        return;
+      }
+      resolve(response || { faviconUrl: null });
+    });
+  });
+};

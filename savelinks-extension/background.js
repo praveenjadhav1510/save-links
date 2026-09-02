@@ -17,7 +17,7 @@ chrome.commands.onCommand.addListener((command) => {
   }
 });
 
-// ── Message listener (popup button) ────────────────────────────────
+// ── Message listener (popup button + favicon lookup) ───────────────
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.action === "save-current-tab") {
     saveCurrentTab().then(sendResponse).catch((err) =>
@@ -25,7 +25,55 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     );
     return true; // keep channel open for async response
   }
+
+  if (message.action === "get-favicon") {
+    getFaviconForUrl(message.url).then(sendResponse);
+    return true;
+  }
 });
+
+// ── Favicon lookup for the web app ─────────────────────────────────
+/**
+ * Searches all open tabs for a tab whose URL matches the given URL
+ * and returns its native browser favicon (chrome favIconUrl is always
+ * the most accurate icon the browser itself displays).
+ */
+async function getFaviconForUrl(targetUrl) {
+  try {
+    const target = normalizeTabUrl(targetUrl);
+    if (!target) return { faviconUrl: null };
+
+    const tabs = await chrome.tabs.query({});
+
+    for (const tab of tabs) {
+      if (!tab.url) continue;
+      const candidate = normalizeTabUrl(tab.url);
+      if (candidate && candidate === target && tab.favIconUrl) {
+        return { faviconUrl: tab.favIconUrl };
+      }
+    }
+
+    return { faviconUrl: null };
+  } catch (err) {
+    console.warn("[Save Links] Favicon lookup failed:", err.message);
+    return { faviconUrl: null };
+  }
+}
+
+/**
+ * Normalizes a URL to origin + pathname (ignores query strings,
+ * hash, and trailing slashes) for fuzzy tab matching.
+ */
+function normalizeTabUrl(rawUrl) {
+  try {
+    const u = new URL(rawUrl);
+    if (u.protocol !== "http:" && u.protocol !== "https:") return null;
+    let path = u.pathname.replace(/\/+$/, "");
+    return u.origin + path;
+  } catch {
+    return null;
+  }
+}
 
 // ── Core logic ─────────────────────────────────────────────────────
 async function saveCurrentTab() {
