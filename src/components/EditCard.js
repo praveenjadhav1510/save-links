@@ -7,6 +7,7 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import CATEGORY_LABELS from "./CategoryLabels";
+import { getFaviconUrl } from "../utils/getFavicon";
 
 const CATEGORIES = [
   "WebPage", "AI", "Tool", "Utility",
@@ -47,22 +48,8 @@ export default function EditCard({ card, data, onClose, refreshData, notify }) {
     if (!url || !isValidUrl(url)) return;
     setLoading(true);
     try {
-      const response = await fetch(
-        "https://favicon-api-rho.vercel.app/api/favicon?x-api-key=3dc7403302f4b8eccbe9465f0aae978c7e2bb661754a71f9e6ad88a81a9a7a0e",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ url }),
-        }
-      );
-      const resData = await response.json();
-      if (resData.success && resData.favicon && resData.favicon.href) {
-        setFaviconUrl(resData.favicon.href);
-      } else {
-        setFaviconUrl("default.svg");
-      }
+      const iconUrl = await getFaviconUrl(url);
+      setFaviconUrl(iconUrl);
     } catch (error) {
       console.error("Error fetching favicon:", error);
       setFaviconUrl("default.svg");
