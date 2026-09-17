@@ -123,18 +123,21 @@ async function saveCurrentTab() {
   const saveLinksTab = await findOrOpenSaveLinksTab();
 
   // 5. Send data to the content script
+  let updated = false;
   try {
-    await sendDataToTab(saveLinksTab.id, pageData);
+    const res = await sendDataToTab(saveLinksTab.id, pageData);
+    updated = !!(res && res.updated);
   } catch (err) {
     // Content script might not be injected yet — inject it and retry
     await chrome.scripting.executeScript({
       target: { tabId: saveLinksTab.id },
       files: ["content.js"],
     });
-    await sendDataToTab(saveLinksTab.id, pageData);
+    const res = await sendDataToTab(saveLinksTab.id, pageData);
+    updated = !!(res && res.updated);
   }
 
-  return { success: true, name: pageData.name };
+  return { success: true, name: pageData.name, updated };
 }
 
 // ── Color extraction via offscreen document ────────────────────────

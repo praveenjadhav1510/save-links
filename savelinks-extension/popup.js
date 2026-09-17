@@ -72,13 +72,18 @@ saveBtn.addEventListener("click", () => {
     }
 
     if (response && response.success) {
-      showStatus(`"${response.name}" saved!`, "success");
+      showStatus(
+        response.updated
+          ? `"${response.name}" favicon updated!`
+          : `"${response.name}" saved!`,
+        "success"
+      );
       resetButton("saved");
     } else if (response && response.error) {
       showStatus(response.error, "error");
       resetButton("error");
     } else {
-      showStatus("Link already exists.", "duplicate");
+      showStatus("Something went wrong. Try again.", "error");
       resetButton("error");
     }
   });

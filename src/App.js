@@ -115,12 +115,13 @@ function App() {
   // content script after a link is saved or a duplicate is detected.
   useEffect(() => {
     const handleExtensionSave = (e) => {
-      const { success, duplicate, name, color } = e.detail;
-      if (success) {
+      const { success, updated, name, color } = e.detail;
+      if (success && updated) {
+        pushNotification(`Favicon updated for ${name}`, color || "#1dff77");
+        refreshData();
+      } else if (success) {
         pushNotification(`${name} saved from extension`, color || "#1dff77");
         refreshData();
-      } else if (duplicate) {
-        pushNotification(`${name} already exists`, "#ffaa00");
       }
     };
 

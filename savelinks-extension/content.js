@@ -22,24 +22,29 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       const raw = localStorage.getItem(STORAGE_KEY);
       const links = raw ? JSON.parse(raw) : [];
 
-      // Avoid duplicates — check by URL
-      const exists = links.some(
+      // Check by URL — if it already exists, update its favicon (and color)
+      const existingIndex = links.findIndex(
         (link) => link.url === newLink.url
       );
 
-      if (exists) {
-        // Dispatch duplicate notification event
+      if (existingIndex !== -1) {
+        links[existingIndex].iconUrl = newLink.iconUrl;
+        links[existingIndex].color = newLink.color;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(links));
+
+        // Dispatch updated notification event
         window.dispatchEvent(
           new CustomEvent("savelinks-extension-saved", {
             detail: {
-              success: false,
-              duplicate: true,
-              name: newLink.name,
-              color: "#ffaa00",
+              success: true,
+              updated: true,
+              name: links[existingIndex].name,
+              color: "#1dff77",
             },
           })
         );
-        sendResponse({ success: false, reason: "duplicate" });
+
+        sendResponse({ success: true, updated: true });
         return;
       }
 
