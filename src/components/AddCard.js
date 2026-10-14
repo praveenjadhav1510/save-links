@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmark, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import CATEGORY_LABELS from "./CategoryLabels";
-import { getFaviconUrl } from "../utils/getFavicon";
+import { getFaviconUrl, resolveIconUrl } from "../utils/getFavicon";
 
 const CATEGORIES = [
   "WebPage",
@@ -144,7 +144,7 @@ export default function AddCard({ data, refreshData, notify }) {
                   {loading ? (
                     <FontAwesomeIcon icon={faCircleNotch} spin />
                   ) : (
-                    <img src={faviconUrl} alt="icon" onError={() => setFaviconUrl("default.svg")} />
+                    <img src={resolveIconUrl(faviconUrl)} alt="icon" onError={() => setFaviconUrl("default.svg")} />
                   )}
                 </div>
                 <div className="card-name">

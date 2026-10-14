@@ -4,6 +4,7 @@ import { faXmarkCircle, faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import EditCard from "./EditCard";
+import { resolveIconUrl } from "../utils/getFavicon";
 
 export default function Card({
   id,
@@ -114,7 +115,7 @@ export default function Card({
           }}
         >
           <div className="card-icon-container">
-            <img src={iconUrl} alt="icon" onError={handleError} id="icon" />
+            <img src={resolveIconUrl(iconUrl)} alt="icon" onError={handleError} id="icon" />
           </div>
           <div
             className={`card-name${isOverflowing ? " is-overflowing" : ""}`}

@@ -3,6 +3,16 @@ const FAVICON_API_URL =
 
 const EXTENSION_TIMEOUT_MS = 3000;
 
+export const DEFAULT_ICON = `${process.env.PUBLIC_URL || ""}/default.svg`;
+
+// Stored fallback value is the environment-independent sentinel "default.svg".
+// Resolve it (and any missing icon) to the real asset path at render time so it
+// works regardless of the deployed base path (e.g. GitHub Pages /save-links/).
+export function resolveIconUrl(iconUrl) {
+  if (!iconUrl || iconUrl === "default.svg") return DEFAULT_ICON;
+  return iconUrl;
+}
+
 function isValidUrl(string) {
   try {
     new URL(string);

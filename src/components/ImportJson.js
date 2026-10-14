@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CryptoJS from "crypto-js";
+import { resolveIconUrl, DEFAULT_ICON } from "../utils/getFavicon";
 
 import "./ImportExport.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -308,10 +309,11 @@ export default function ImportJson({ display, setDisplay, refreshData, notify })
                         </div>
                         <div className="mini-card-icon">
                           <img
-                            src={link.iconUrl || "default.svg"}
+                            src={resolveIconUrl(link.iconUrl)}
                             alt=""
                             onError={(e) => {
-                              e.target.src = "default.svg";
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = DEFAULT_ICON;
                             }}
                           />
                         </div>
