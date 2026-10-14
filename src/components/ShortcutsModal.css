@@ -3,22 +3,32 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
-  background: white;
-  padding: 2rem;
+  background: #ffffff0d;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-  z-index: 2000;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.92);
+  padding: 2rem;
   width: 90%;
   max-width: 500px;
+  max-height: 85vh;
+  overflow-y: auto;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 2000;
 }
 
 .shortcuts-modal.visible {
   opacity: 1;
   visibility: visible;
   transform: translate(-50%, -50%) scale(1);
+}
+
+body.dark-theme .shortcuts-modal {
+  background: #0000000d;
 }
 
 .shortcuts-overlay {
@@ -45,14 +55,14 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 1rem;
 }
 
 .shortcuts-header h2 {
   margin: 0;
   font-size: 1.5rem;
-  color: #333;
+  color: rgba(255, 255, 255, 0.92);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -61,42 +71,47 @@
 .close-shortcuts {
   cursor: pointer;
   font-size: 1.2rem;
-  color: #999;
+  color: rgba(255, 255, 255, 0.4);
   transition: color 0.2s;
 }
 
 .close-shortcuts:hover {
-  color: #333;
+  color: white;
 }
 
 .shortcuts-list {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
 .shortcut-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 12px;
-  background: #f8f9fa;
-  border-radius: 10px;
-  transition: transform 0.2s;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: space-between;
+  gap: 10px;
+  min-height: 74px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .shortcut-item:hover {
-  transform: translateX(5px);
-  background: #f0f2f5;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .shortcut-keys {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
   gap: 5px;
 }
 
 .key {
-  background: #333;
+  background: #3a3a44;
   color: white;
   padding: 4px 8px;
   border-radius: 6px;
@@ -104,11 +119,19 @@
   font-size: 0.9rem;
   min-width: 25px;
   text-align: center;
-  box-shadow: 0 2px 0 #000;
+  border: 1px solid #4a4a56;
+  box-shadow: 0 2px 0 #16161c;
 }
 
 .shortcut-desc {
-  font-size: 0.95rem;
-  color: #555;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.72);
   font-weight: 500;
+  line-height: 1.25;
+}
+
+@media (max-width: 480px) {
+  .shortcuts-list {
+    grid-template-columns: 1fr;
+  }
 }

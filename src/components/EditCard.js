@@ -5,6 +5,7 @@ import {
   faCircleNotch,
   faPenToSquare,
   faCheck,
+  faRotateRight,
 } from "@fortawesome/free-solid-svg-icons";
 import CATEGORY_LABELS from "./CategoryLabels";
 import { getFaviconUrl, resolveIconUrl } from "../utils/getFavicon";
@@ -43,7 +44,7 @@ export default function EditCard({ card, data, onClose, refreshData, notify }) {
   };
 
 
-  /* ─── auto-fetch favicon when URL changes ─── */
+  /* ─── fetch favicon on demand ─── */
   const getFavicon = useCallback(async () => {
     if (!url || !isValidUrl(url)) return;
     setLoading(true);
@@ -57,13 +58,6 @@ export default function EditCard({ card, data, onClose, refreshData, notify }) {
       setLoading(false);
     }
   }, [url]);
-
-  useEffect(() => {
-    const id = setTimeout(() => {
-      if (url && isValidUrl(url)) getFavicon();
-    }, 500);
-    return () => clearTimeout(id);
-  }, [url, getFavicon]);
 
   /* ─── save handler ─── */
   const saveCard = () => {
@@ -191,6 +185,15 @@ export default function EditCard({ card, data, onClose, refreshData, notify }) {
           {/* Footer */}
           <div className="modal-footer">
             <button className="btn-cancel" onClick={onClose}>Cancel</button>
+            <button
+              className="btn-refresh"
+              onClick={getFavicon}
+              disabled={loading || !isValidUrl(url)}
+              title="Refresh icon from URL"
+            >
+              <FontAwesomeIcon icon={faRotateRight} spin={loading} />
+              {loading ? "Fetching..." : "Refresh Icon"}
+            </button>
             <button
               className={`btn-save edit-save-btn ${saved ? "saved" : ""}`}
               onClick={saveCard}
