@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useSortable } from "@dnd-kit/sortable";
@@ -23,10 +23,34 @@ export default function Card({
 }) {
   const [iconUrl, setIconUrl] = useState(initialIconUrl);
   const [isEditing, setIsEditing] = useState(false);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const nameRef = useRef(null);
 
   useEffect(() => {
     setIconUrl(initialIconUrl);
   }, [initialIconUrl]);
+
+  useEffect(() => {
+    const container = nameRef.current;
+    if (!container) return;
+
+    const measure = () => {
+      const span = container.querySelector("span");
+      if (!span) return;
+      setIsOverflowing(span.scrollWidth > container.clientWidth + 1);
+    };
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(container);
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(measure);
+    }
+
+    return () => observer.disconnect();
+  }, [name]);
 
   const deleteCard = (e) => {
     e.preventDefault();
@@ -92,7 +116,10 @@ export default function Card({
           <div className="card-icon-container">
             <img src={iconUrl} alt="icon" onError={handleError} id="icon" />
           </div>
-          <div className="card-name">
+          <div
+            className={`card-name${isOverflowing ? " is-overflowing" : ""}`}
+            ref={nameRef}
+          >
             <span>{name}</span>
           </div>
 
