@@ -89,8 +89,8 @@ body {
   transition: transform 0.2s linear;
 }
 
-/* on hover, slide text to reveal hidden part */
-.card:hover .card-name span {
+/* on hover, slide text to reveal hidden part (only when overflowing) */
+.card:hover .card-name.is-overflowing span {
   transition: transform 4s linear;
   transform: translateX(-100%);
 }

@@ -7,7 +7,7 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import CATEGORY_LABELS from "./CategoryLabels";
-import { getFaviconUrl } from "../utils/getFavicon";
+import { getFaviconUrl, resolveIconUrl } from "../utils/getFavicon";
 
 const CATEGORIES = [
   "WebPage", "AI", "Tool", "Utility",
@@ -121,7 +121,7 @@ export default function EditCard({ card, data, onClose, refreshData, notify }) {
                 <FontAwesomeIcon icon={faCircleNotch} spin style={{ color: "white" }} />
               ) : (
                 <img
-                  src={faviconUrl}
+                  src={resolveIconUrl(faviconUrl)}
                   alt="icon"
                   onError={() => setFaviconUrl("default.svg")}
                 />
