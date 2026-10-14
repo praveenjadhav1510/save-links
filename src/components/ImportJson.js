@@ -297,7 +297,6 @@ export default function ImportJson({ display, setDisplay, refreshData, notify })
                       <div
                         key={index}
                         className={`mini-card-preview ${isSelected ? "card-selected" : ""}`}
-                        style={{ borderLeft: `4px solid ${link.color || "#1e1e1e"}` }}
                         onClick={() => toggleSelect(index)}
                       >
                         <div className="mini-card-checkbox">
@@ -307,7 +306,7 @@ export default function ImportJson({ display, setDisplay, refreshData, notify })
                             onChange={() => {}} // Handled by parent div click
                           />
                         </div>
-                        <div className="mini-card-icon">
+                        <div className="mini-card-icon" style={{ background: link.color || undefined }}>
                           <img
                             src={resolveIconUrl(link.iconUrl)}
                             alt=""
@@ -325,7 +324,9 @@ export default function ImportJson({ display, setDisplay, refreshData, notify })
                             {link.url}
                           </span>
                         </div>
-                        <span className="mini-card-category">{link.category}</span>
+                        {link.category && (
+                          <span className="mini-card-category">{link.category}</span>
+                        )}
                       </div>
                     );
                   })}
