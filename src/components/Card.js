@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmarkCircle, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faXmarkCircle, faPenToSquare, faCopy } from "@fortawesome/free-solid-svg-icons";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import EditCard from "./EditCard";
 import { resolveIconUrl } from "../utils/getFavicon";
+import { copyToClipboard } from "../utils/copyToClipboard";
 
 export default function Card({
   id,
@@ -68,6 +69,24 @@ export default function Card({
     setIsEditing(true);
   };
 
+  const copyLink = async () => {
+    const copied = await copyToClipboard(url);
+    notify(copied ? "Link copied!" : "Failed to copy link", copied ? "#1dff77" : "red");
+  };
+
+  const handleCopyClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    copyLink();
+  };
+
+  const handleCopyKeyDown = (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "c") {
+      e.preventDefault();
+      copyLink();
+    }
+  };
+
   const handleError = () => setIconUrl("default.svg");
 
   const {
@@ -101,6 +120,7 @@ export default function Card({
         target={openInNewTab ? "_blank" : "_self"}
         rel="noreferrer"
         style={style}
+        onKeyDown={handleCopyKeyDown}
         className={`card-link ${isDragging ? "dragging" : ""}`}
         {...attributes}
         {...(isDraggable ? listeners : {})}
@@ -116,6 +136,14 @@ export default function Card({
         >
           <div className="card-icon-container">
             <img src={resolveIconUrl(iconUrl)} alt="icon" onError={handleError} id="icon" />
+            {/* Copy link overlay – same size as the favicon, shown on hover */}
+            <FontAwesomeIcon
+              icon={faCopy}
+              onClick={handleCopyClick}
+              className="copy-mark"
+              title="Copy link"
+              aria-label="Copy link"
+            />
           </div>
           <div
             className={`card-name${isOverflowing ? " is-overflowing" : ""}`}

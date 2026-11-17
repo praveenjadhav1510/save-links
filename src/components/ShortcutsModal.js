@@ -16,6 +16,8 @@ export default function ShortcutsModal({ isOpen, onClose }) {
 
   const shortcuts = [
     { keys: ["?"], desc: "Show / Hide Help" },
+    { keys: ["Tab"], desc: "Focus a Link" },
+    { keys: ["Ctrl/⌘", "C"], desc: "Copy Focused Link" },
     { keys: ["S", "/"], desc: "Focus Search" },
     { keys: ["A", "←"], desc: "Previous Filter" },
     { keys: ["D", "→"], desc: "Next Filter" },

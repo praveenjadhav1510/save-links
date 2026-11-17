@@ -103,6 +103,32 @@ body {
       transparent);
 }
 
+/* Copy link overlay – sits exactly on top of the favicon, revealed on hover.
+   The extra specificity overrides FontAwesome's injected `height: 1em` and
+   `box-sizing: content-box` rules, so the overlay matches the favicon size. */
+.card .card-icon-container .copy-mark {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: var(--favicon-size);
+  height: var(--favicon-size);
+  box-sizing: border-box;
+  padding: 18%;
+  border-radius: var(--favicon-size);
+  color: var(--card-color, #1e1e1e);
+  background: #ffffff;
+  opacity: 0;
+  visibility: hidden;
+  cursor: copy;
+  z-index: 2;
+}
+
+.card:hover .card-icon-container .copy-mark,
+.card-link:focus-visible .card-icon-container .copy-mark {
+  opacity: 1;
+  visibility: visible;
+}
+
 .x-mark {
   position: relative;
   top: 0px;
@@ -126,12 +152,14 @@ body {
   background: #ffffffaf;
   display: grid;
   place-items: center;
+  position: relative;
+  --favicon-size: 45px;
 }
 
 .card-icon-container img {
-  width: 45px;
-  height: 45px;
-  border-radius: 45px;
+  width: var(--favicon-size);
+  height: var(--favicon-size);
+  border-radius: var(--favicon-size);
 }
 
 a {
@@ -765,12 +793,7 @@ body.dark-theme .userbox .user-name-text {
   height: 40px;
   margin-left: -5px;
   margin-right: 7px;
-}
-
-.App.density-compact .card-icon-container img {
-  width: 32px;
-  height: 32px;
-  border-radius: 32px;
+  --favicon-size: 32px;
 }
 
 .App.density-compact .card-name {
@@ -796,12 +819,7 @@ body.dark-theme .userbox .user-name-text {
   height: 60px;
   margin-left: -12px;
   margin-right: 12px;
-}
-
-.App.density-large .card-icon-container img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
+  --favicon-size: 50px;
 }
 
 .App.density-large .card-name {
